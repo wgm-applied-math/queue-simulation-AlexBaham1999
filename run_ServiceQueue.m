@@ -7,7 +7,7 @@
 n_samples = 100;
 
 % Each sample is run up to a maximum time of 1000.
-max_time = 1000;
+max_time = 480;
 
 % Record how many customers are in the system at the end of each sample.
 NInSystemSamples = cell([1, n_samples]);
@@ -47,35 +47,35 @@ NInSystem = vertcat(NInSystemSamples{:});
 % f(*args).
 
 %% Make a picture
+qlength = length(q.Served);
 
-W = zeros(1, 145);
+W = zeros(1, qlength);
 
-for n = 1:145
+for n = 1:qlength
     W(1, n) = q.Served{1, n}.DepartureTime - q.Served{1, n}.ArrivalTime;
 end
 
-totaltimeinsystem = sum(W)/145;
+totaltimeinsystem = sum(W)/qlength;
 
-WQ = zeros(1, 145);
+WQ = zeros(1, qlength);
 
-for n = 1:145
+for n = 1:qlength
     WQ(1, n) = q.Served{1, n}.BeginServiceTime - q.Served{1, n}.ArrivalTime;
 end
 
-totaltimewaiting = sum(WQ)/145;
+totaltimewaiting = sum(WQ)/qlength;
 
-TotalServed = zeros(1, 145);
+TotalServed = zeros(1, qlength);
 
-for n = 1:145
+for n = 1:qlength
     TotalServed(1, n) = q.Served{1, n}.DepartureTime - q.Served{1, n}.BeginServiceTime;
 end
 
-timeserved = sum(TotalServed)/145;
+timeserved = sum(TotalServed)/qlength;
 
 SimulationSteadyStates = [totaltimeinsystem, totaltimewaiting, timeserved];
 TheoreticalSteadyStates = [5.361, .3024, 5.0586];
 
-H = histogram(TheoreticalSteadyStates, 3);
 
 
 % Start with a histogram.  The result is an empirical PDF, that is, the
