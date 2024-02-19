@@ -73,10 +73,10 @@ end
 timeserved = sum(TotalServed)/145;
 
 SimulationSteadyStates = [totaltimeinsystem, totaltimewaiting, timeserved];
-TheoreticalSteadyStates = [6.24, 2.31, 3.94];
+TheoreticalSteadyStates = [5.361, .3024, 5.0586];
 
 H = histogram(TheoreticalSteadyStates, 3);
-plot(H);
+
 
 % Start with a histogram.  The result is an empirical PDF, that is, the
 % area of the bar at horizontal index n is proportional to the fraction of
@@ -87,8 +87,8 @@ h = histogram(NInSystem, Normalization = "probability", BinMethod = "integers");
 % further plotting function to work with the same picture rather than
 % create a new one.
 hold on;
-theoryprob = [9/26, 9/26, 3/13, 1/13];
-xvaluesshifted = [0, 1, 2, 3];
+theoryprob = [.40315, .40315, .15118, .03779, .004716];
+xvaluesshifted = [0, 1, 2, 3, 4];
 plot(xvaluesshifted, theoryprob, 'o');
 
 % For comparison, plot the theoretical results for a M/M/1 queue.
