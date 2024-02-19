@@ -57,6 +57,7 @@ end
 
 totaltimeinsystem = sum(W)/qlength;
 
+
 WQ = zeros(1, qlength);
 
 for n = 1:qlength
@@ -65,6 +66,7 @@ end
 
 totaltimewaiting = sum(WQ)/qlength;
 
+
 TotalServed = zeros(1, qlength);
 
 for n = 1:qlength
@@ -72,6 +74,7 @@ for n = 1:qlength
 end
 
 timeserved = sum(TotalServed)/qlength;
+
 
 SimulationSteadyStates = [totaltimeinsystem, totaltimewaiting, timeserved];
 TheoreticalSteadyStates = [5.361, .3024, 5.0586];
@@ -90,6 +93,12 @@ hold on;
 theoryprob = [.40315, .40315, .15118, .03779, .004716];
 xvaluesshifted = [0, 1, 2, 3, 4];
 plot(xvaluesshifted, theoryprob, 'o');
+
+
+%Wt = histogram(totaltimeinsystem, Normalization= "percentage", BinMethod="integers");
+%WQt = histogram(totaltimewaiting, Normalization= "percentage", BinMethod="integers");
+%WmWQt = histogram(timeserved, Normalization= "percentage", BinMethod="integers");
+
 
 % For comparison, plot the theoretical results for a M/M/1 queue.
 % The agreement isn't all that good unless you run for a long time, say
