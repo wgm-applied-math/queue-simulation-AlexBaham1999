@@ -79,20 +79,47 @@ timeserved = sum(TotalServed)/qlength;
 SimulationSteadyStates = [totaltimeinsystem, totaltimewaiting, timeserved];
 TheoreticalSteadyStates = [5.361, .3024, 5.0586];
 
+figw = figure();
+tw = tiledlayout(figw, 1, 1);
+axw = nexttile(tw);
+hold(axw, "on");
+
+Wh = histogram(axw, W, Normalization = "probability", BinMethod = "auto");
+plot(axw, xline(5.361));
+
+figwq = figure();
+twq = tiledlayout(figwq, 1, 1);
+axwq = nexttile(twq);
+hold(axwq, "on");
+
+Wqh = histogram(axwq, WQ, Normalization = "probability", BinMethod = "auto");
+plot(axwq, xline(.3024));
+
+figts = figure();
+tts = tiledlayout(figts, 1, 1);
+axts = nexttile(tts);
+hold(axts, "on");
+
+TSh = histogram(axts, TotalServed, Normalization = "probability", BinMethod = "auto");
+plot(axts, xline(5.0586));
 
 
 % Start with a histogram.  The result is an empirical PDF, that is, the
 % area of the bar at horizontal index n is proportional to the fraction of
 % samples for which there were n customers in the system.
+fig2 = figure();
+t2 = tiledlayout(1,1);
+ax2 = nexttile(t2);
 h = histogram(NInSystem, Normalization = "probability", BinMethod = "integers");
+
 
 % MATLAB-ism: Once you've created a picture, you can use "hold on" to cause
 % further plotting function to work with the same picture rather than
 % create a new one.
-hold on;
+hold(ax2, "on");
 theoryprob = [.40315, .40315, .15118, .03779, .004716];
 xvaluesshifted = [0, 1, 2, 3, 4];
-plot(xvaluesshifted, theoryprob, 'o');
+plot(ax2, xvaluesshifted, theoryprob, 'o');
 
 
 %Wt = histogram(totaltimeinsystem, Normalization= "percentage", BinMethod="integers");
@@ -112,7 +139,7 @@ P(1) = P0;
 for n = 1:nMax
     P(1+n) = P0 * rho^n;
 end
-plot(ns, P, 'o', MarkerEdgeColor='k', MarkerFaceColor='r');
+plot(ax2, ns, P, 'o', MarkerEdgeColor='k', MarkerFaceColor='r');
 
 % This sets some paper-related properties of the figure so that you can
 % save it as a PDF and it doesn't fill a whole page.
